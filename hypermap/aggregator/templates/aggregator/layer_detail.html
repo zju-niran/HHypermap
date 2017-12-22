@@ -132,12 +132,26 @@
             <td>{{ layer.layerwm.category }}</td>
           </tr>
         {% endif %}
+        {% if layer.type = 'Hypermap:WorldMap2' %}
+          <tr>
+            <td><strong>{% trans "Username" %}</strong></td>
+            <td>{{ layer.layerwm.username }}</td>
+          </tr>
+          <tr>
+            <td><strong>{% trans "Category" %}</strong></td>
+            <td>{{ layer.layerwm.category }}</td>
+          </tr>
+        {% endif %}
         <tr>
         <td><strong>{% trans "Dates" %}</strong></td>
         <td>
           {% if layer.layerdate_set.count > 0 %}
           <ul>
             {% if layer.type = 'Hypermap:WorldMap' %}
+              <li>{% trans "Start Date" %}: {{ layer.layerwm.temporal_extent_start }}</li>
+              <li>{% trans "End Date" %}: {{ layer.layerwm.temporal_extent_end }}</li>
+            {% endif %}
+            {% if layer.type = 'Hypermap:WorldMap2' %}
               <li>{% trans "Start Date" %}: {{ layer.layerwm.temporal_extent_start }}</li>
               <li>{% trans "End Date" %}: {{ layer.layerwm.temporal_extent_end }}</li>
             {% endif %}

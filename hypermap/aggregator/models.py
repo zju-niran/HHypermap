@@ -326,6 +326,8 @@ class Service(Resource):
                 update_layers_esri_imageserver(self)
             elif self.type == 'Hypermap:WorldMap':
                 update_layers_wm(self)
+            elif self.type == 'Hypermap:WorldMap2':
+                update_layers_wm2(self)
             elif self.type == 'Hypermap:WARPER':
                 update_layers_warper(self)
 
@@ -401,6 +403,9 @@ class Service(Resource):
             if self.type == 'Hypermap:WorldMap':
                 urllib2.urlopen(self.url)
                 title = 'Harvard WorldMap'
+            if self.type == 'Hypermap:WorldMap2':
+                urllib2.urlopen(self.url)
+                title = 'ZJU Acadamic Map Publishing Platform'
             if self.type == 'Hypermap:WARPER':
                 urllib2.urlopen(self.url)
             # update title without raising a signal and recursion
@@ -457,6 +462,8 @@ class Service(Resource):
         # WM is always valid
         if self.type == 'Hypermap:WorldMap':
             return
+        if self.type == 'Hypermap:WorldMap2':
+            return
 
         signals.post_save.disconnect(service_post_save, sender=Service)
 
@@ -510,7 +517,7 @@ class Catalog(models.Model):
     url = models.URLField(
         max_length=255,
         help_text=("Only if remote. URL where the API for the search backend is served."
-                   "ex: http://localhost:8000/registry/api/search/"),
+                   "ex: http://202.121.180.205:8000/registry/api/search/"),
         null=True, blank=True
     )
 
@@ -573,7 +580,7 @@ class Layer(Resource):
         This endpoint will be the WMTS MapProxy endpoint, only for WM we use the original endpoint.
         """
         endpoint = self.url
-        if self.type not in ('Hypermap:WorldMap',):
+        if self.type not in ('Hypermap:WorldMap','Hypermap:WorldMap2',):
             endpoint = 'registry/%s/layer/%s/map/wmts/1.0.0/WMTSCapabilities.xml' % (
                 self.catalog.slug,
                 self.id
@@ -717,6 +724,25 @@ class Layer(Resource):
             if 'ogc.se_xml' in img.info()['Content-Type']:
                 raise ValueError(img.read())
                 img = None
+        elif self.type == 'Hypermap:WorldMap2':
+            ows = WebMapService(url=self.url,username=settings.REGISTRY_WORLDMAP_USERNAME,password=settings.REGISTRY_WORLDMAP_PASSWORD)           
+            op_getmap = ows.getOperationByName('GetMap')
+            LOGGER.debug('success %s' % self.url)
+            LOGGER.debug('success 123')
+            image_format = 'image/png'
+            if image_format not in op_getmap.formatOptions:
+                if 'image/jpeg' in op_getmap.formatOptions:
+                    image_format = 'image/jpeg'
+                else:
+                    raise NotImplementedError(format_error_message)
+            LOGGER.debug('success 123456789')
+            
+            img = ows.getmap(layers=[self.name],srs='EPSG:4326',bbox=(float(self.bbox_x0),float(self.bbox_y0),float(self.bbox_x1),float(self.bbox_y1)),size=(50,50),format=image_format,transparent=True)
+            LOGGER.debug('success 12345')
+            if 'ogc.se_xml' in img.info()['Content-Type']:
+                raise ValueError(img.read())
+                img = None
+                LOGGER.debug('success 123456')
         elif self.type == 'Hypermap:WARPER':
             ows = WebMapService(self.url)
             op_getmap = ows.getOperationByName('GetMap')
@@ -789,6 +815,7 @@ class Layer(Resource):
 
         # update thumb in model
         if img:
+            LOGGER.debug('success 1234567')
             thumbnail_file_name = '%s.jpg' % self.name
             upfile = SimpleUploadedFile(thumbnail_file_name, img.read(), "image/jpeg")
             self.thumbnail.save(thumbnail_file_name, upfile, True)
@@ -810,9 +837,11 @@ class Layer(Resource):
         except ValueError, err:
             # caused by update_thumbnail()
             # self.href is empty in arcserver.ExportMap
+            LOGGER.debug('success12345')
             if str(err).startswith("unknown url type:"):
                 LOGGER.debug('Thumbnail can not be updated: %s' % str(err))
         except Exception, err:
+            LOGGER.debug('success123456')
             message = str(err)
             success = False
 
@@ -1379,6 +1408,146 @@ def update_layers_wm(service, num_layers=None):
             layer.save()
             LOGGER.debug('Layer %s marked as deleted' % layer.uuid)
 
+def update_layers_wm2(service, num_layers=None):
+    """
+    Update layers for an WorldMap.
+    Sample endpoint: http://202.121.180.205:8000/
+    """
+
+    if num_layers:
+        total = num_layers
+    else:
+        response = requests.get('http://202.121.180.205:8000/api/2.6/layer/?format=json')
+        data = json.loads(response.content)
+        total = data['meta']['total_count']
+    # set srs
+    # WorldMap supports only 4326, 900913, 3857
+    for crs_code in ['EPSG:4326', 'EPSG:900913', 'EPSG:3857']:
+        srs, created = SpatialReferenceSystem.objects.get_or_create(code=crs_code)
+        service.srs.add(srs)
+    service.update_validity()
+
+    layer_n = 0
+    limit = 10
+    for i in range(0, total, limit):
+        try:
+            url = (
+                    'http://202.121.180.205:8000/api/2.6/layer/?format=json&order_by=-date&offset=%s&limit=%s'
+                    % (i, limit)
+            )
+            LOGGER.debug('Fetching %s' % url)
+            response = requests.get(url)
+            data = json.loads(response.content)
+            for row in data['objects']:
+                name = row['typename']
+                uuid = row['uuid']
+                LOGGER.debug('Updating layer %s' % name)
+                title = row['title']
+                abstract = row['abstract']
+                bbox = row['bbox']
+                page_url = 'http://202.121.180.205:8000/data/%s' % name
+                category = ''
+                if 'topic_category' in row:
+                    category = row['topic_category']
+                username = ''
+                if 'owner_username' in row:
+                    username = row['owner_username']
+                temporal_extent_start = ''
+                if 'temporal_extent_start' in row:
+                    temporal_extent_start = row['temporal_extent_start']
+                temporal_extent_end = ''
+                if 'temporal_extent_end' in row:
+                    temporal_extent_end = row['temporal_extent_end']
+                # we use the geoserver virtual layer getcapabilities for wm endpoint
+                endpoint = 'http://202.121.180.205:8080/geoserver/geonode/%s/wms?' % title
+                is_public = True
+                if 'is_public' in row:
+                    is_public = row['is_public']
+                layer, created = Layer.objects.get_or_create(
+                    service=service, catalog=service.catalog, name=name, uuid=uuid)
+                if created:
+                    LOGGER.debug('Added a new layer in registry: %s, %s' % (name, uuid))
+                if layer.active:
+                    links = [['Hypermap:WorldMap2', endpoint],
+                             ['OGC:WMTS', settings.SITE_URL.rstrip('/') + '/' + layer.get_url_endpoint()]]
+                    # update fields
+                    layer.type = 'Hypermap:WorldMap2'
+                    layer.title = title
+                    layer.abstract = abstract
+                    layer.is_public = is_public
+                    layer.url = endpoint
+                    layer.page_url = page_url
+                    # category and owner username
+                    layer_wm, created = LayerWM.objects.get_or_create(layer=layer)
+                    layer_wm.category = category
+                    layer_wm.username = username
+                    layer_wm.temporal_extent_start = temporal_extent_start
+                    layer_wm.temporal_extent_end = temporal_extent_end
+                    layer_wm.save()
+
+                    # bbox [x0, y0, x1, y1]
+                    # check if it is a valid bbox (TODO improve this check)
+                    for bboxtmp in bbox:
+                        if bboxtmp in ['-inf', 'inf']:
+                            bboxtmp = 'None'
+                    x0 = format_float(bbox[0])
+                    x1 = format_float(bbox[1])
+                    y0 = format_float(bbox[2])
+                    y1 = format_float(bbox[3])
+                    # In many cases for some reason to be fixed GeoServer has x coordinates flipped in WM.
+                    x0, x1 = flip_coordinates(x0, x1)
+                    y0, y1 = flip_coordinates(y0, y1)
+                    layer.bbox_x0 = x0
+                    layer.bbox_y0 = y0
+                    layer.bbox_x1 = x1
+                    layer.bbox_y1 = y1
+                    # keywords
+                    keywords = []
+                    for keyword in row['keywords']:
+                        keywords.append(keyword['name'])
+                    layer.keywords.all().delete()
+                    for keyword in keywords:
+                        layer.keywords.add(keyword)
+                    layer.wkt_geometry = bbox2wktpolygon([x0, y0, x1, y1])
+                    layer.xml = create_metadata_record(
+                        identifier=str(layer.uuid),
+                        source=endpoint,
+                        links=links,
+                        format='Hypermap:WorldMap2',
+                        type=layer.csw_type,
+                        relation=service.id_string,
+                        title=layer.title,
+                        alternative=name,
+                        abstract=layer.abstract,
+                        keywords=keywords,
+                        wkt_geometry=layer.wkt_geometry
+                    )
+                    layer.anytext = gen_anytext(layer.title, layer.abstract, keywords)
+                    layer.save()
+                    # dates
+                    add_mined_dates(layer)
+                    add_metadata_dates_to_layer([layer_wm.temporal_extent_start, layer_wm.temporal_extent_end], layer)
+                    layer_n = layer_n + 1
+                    # exits if DEBUG_SERVICES
+                    LOGGER.debug("Updated layer n. %s/%s" % (layer_n, total))
+                    if DEBUG_SERVICES and layer_n == DEBUG_LAYER_NUMBER:
+                        return
+
+        except Exception as err:
+            LOGGER.error('Error! %s' % err)
+            message = "update_layers_warper: {0}. request={1} response={2}".format(
+                err,
+                service.url,
+                request.text
+            )
+            check = Check(
+                content_object=service,
+                success=False,
+                response_time=0,
+                message=message
+            )
+            check.save()
+
 
 def update_layers_warper(service):
     """
@@ -1678,8 +1847,8 @@ def endpointlist_post_save(instance, *args, **kwargs):
 
 
 def endpoint_post_save(instance, *args, **kwargs):
-
-    if Endpoint.objects.filter(url=instance.url).count() == 0:
+    count = Endpoint.objects.filter(url=instance.url).count()
+    if Endpoint.objects.filter(url=instance.url).count == 0:
         signals.post_save.disconnect(endpoint_post_save, sender=Endpoint)
         endpoint = Endpoint(url=instance.url)
         endpoint.save()
@@ -1730,7 +1899,7 @@ def layer_pre_save(instance, *args, **kwargs):
     is_valid = True
 
     # we do not need to check validity for WM layers
-    if not instance.service.type == 'Hypermap:WorldMap':
+    if not instance.service.type in ('Hypermap:WorldMap','Hypermap:WorldMap2',):
 
         # 0. a layer is invalid if its service its invalid as well
         if not instance.service.is_valid:

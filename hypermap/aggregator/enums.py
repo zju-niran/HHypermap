@@ -6,6 +6,7 @@ SERVICE_TYPES = (
     ('ESRI:ArcGIS:MapServer', 'ArcGIS REST MapServer'),
     ('ESRI:ArcGIS:ImageServer', 'ArcGIS REST ImageServer'),
     ('Hypermap:WorldMap', 'Harvard WorldMap'),
+    ('Hypermap:WorldMap2', 'ZJU Acadamic Map Publishing Platform'),
     ('Hypermap:WARPER', 'Mapwarper'),
 )
 
@@ -17,6 +18,7 @@ CSW_RESOURCE_TYPES = {
     'ESRI:ArcGIS:MapServer': 'urn:x-esri:serviceType:ArcGIS:MapServer',
     'ESRI:ArcGIS:ImageServer': 'urn:x-esri:serviceType:ArcGIS:ImageServer',
     'Hypermap:WorldMap': 'http://worldmap.harvard.edu/',
+    'Hypermap:WorldMap2': 'http://202.121.180.205:8000/',
     'Hypermap:WARPER': 'https://github.com/timwaters/mapwarper',
 }
 

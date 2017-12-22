@@ -25,6 +25,6 @@ services = Service.objects.filter(type__in=['ESRI:ArcGIS:MapServer', 'ESRI:ArcGI
 print 'ESRI: total_supported_layers: %s, total_layers %s, total_supported_services %s, total_services %s' % \
     report_services(services)
 
-services = Service.objects.filter(type__in=['OGC:WMS', 'Hypermap:WorldMap', 'Hypermap:WARPER', ])
+services = Service.objects.filter(type__in=['OGC:WMS', 'Hypermap:WorldMap','Hypermap:WorldMap2', 'Hypermap:WARPER', ])
 print 'OGC: total_supported_layers: %s, total_layers %s, total_supported_services %s, total_services %s' % \
     report_services(services)

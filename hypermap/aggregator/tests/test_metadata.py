@@ -62,6 +62,18 @@ def create_wm_service():
     )
     service.save()
 
+@with_httmock(hypermap.aggregator.tests.mocks.worldmap.resource_get)
+def create_wm2_service():
+
+    catalog, created = Catalog.objects.get_or_create(
+        name="hypermap", slug="hypermap",
+        url="search_api"
+    )
+    service = Service(
+        type='Hypermap:WorldMap2',
+        catalog=catalog
+    )
+    service.save()
 
 class TestMetadata(unittest.TestCase):
     def setUp(self):
@@ -70,6 +82,7 @@ class TestMetadata(unittest.TestCase):
         create_wms_service()
         create_warper_service()
         create_wm_service()
+        create_wm2_service()
 
     def tearDown(self):
         """delete test data"""

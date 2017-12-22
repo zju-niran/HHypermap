@@ -48,6 +48,13 @@ def create_wm_service():
     )
     service.save()
 
+@with_httmock(hypermap.aggregator.tests.mocks.worldmap.resource_get)
+def create_wm2_service():
+    service = Service(
+        type='Hypermap:WorldMap2',
+    )
+    service.save()
+
 
 class SolrTest(TestCase):
 
@@ -65,6 +72,7 @@ class SolrTest(TestCase):
         create_wms_invalid_service()
         create_warper_service()
         create_wm_service()
+        create_wm2_service()
         # index all
         index_all_layers()
         # some time sleep to commit docs
