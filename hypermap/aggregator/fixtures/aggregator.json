@@ -1,0 +1,122 @@
+[
+{
+    "pk": 1,
+    "model": "aggregator.resource",
+    "fields": {
+        "last_updated": "2016-01-13T21:59:55.758Z",
+        "title": "WCS server for WFP GeoNode",
+        "abstract": "",
+        "created": "2016-01-06T19:00:10.344Z",
+        "active": true,
+        "url": "http://geonode.wfp.org/geoserver/ows",
+        "polymorphic_ctype": 16
+    }
+},
+{
+    "pk": 2,
+    "model": "aggregator.resource",
+    "fields": {
+        "last_updated": "2016-01-13T21:59:51.045Z",
+        "title": "NOAA/National Hurricane Center Tropical Cyclone Forecasts WMS",
+        "abstract": "",
+        "created": "2016-01-06T19:01:54.163Z",
+        "active": true,
+        "url": "http://services.ogc.noaa.gov/geoserver/nhc/wms",
+        "polymorphic_ctype": 16
+    }
+},
+{
+    "pk": 3,
+    "model": "aggregator.resource",
+    "fields": {
+        "last_updated": "2016-01-13T21:59:46.614Z",
+        "title": "My GeoServer WMS",
+        "abstract": "",
+        "created": "2016-01-06T19:13:50.701Z",
+        "active": true,
+        "polymorphic_ctype": 16
+    }
+},
+{
+    "pk": 26,
+    "model": "aggregator.resource",
+    "fields": {
+        "last_updated": "2016-01-13T21:59:41.443Z",
+        "title": "WMTS BGDI",
+        "abstract": "",
+        "created": "2016-01-07T21:54:04.907Z",
+        "active": true,
+        "url": "http://wmts.geo.admin.ch/1.0.0/WMTSCapabilities.xml",
+        "polymorphic_ctype": 16
+    }
+},
+{
+    "pk": 4,
+    "model": "aggregator.resource",
+    "fields": {
+        "last_updated": "2016-01-13T22:14:15.082Z",
+        "title": "NASA Global Imagery Browse Services for EOSDIS",
+        "abstract": "",
+        "created": "2016-01-13T21:59:27.035Z",
+        "active": true,
+        "url": "http://map1.vis.earthdata.nasa.gov/wmts-geo/1.0.0/WMTSCapabilities.xml",
+        "polymorphic_ctype": 16
+    }
+},
+{
+    "pk": 5,
+    "model": "aggregator.resource",
+    "fields": {
+        "last_updated": "2016-01-13T22:28:37.472Z",
+        "title": "ESRI http://arcgis.cast.uark.edu/ArcGIS/rest/services/AGFC/All_Deer_50MCP_Oct11/MapServer",
+        "abstract": "",
+        "created": "2016-01-13T22:23:09.296Z",
+        "active": true,
+        "url": "http://arcgis.cast.uark.edu/ArcGIS/rest/services/AGFC/All_Deer_50MCP_Oct11/MapServer",
+        "polymorphic_ctype": 16
+    }
+},
+{
+    "pk": 1,
+    "model": "aggregator.service",
+    "fields": {
+        "type": "OGC:WMS"
+    }
+},
+{
+    "pk": 2,
+    "model": "aggregator.service",
+    "fields": {
+        "type": "OGC:WMS"
+    }
+},
+{
+    "pk": 3,
+    "model": "aggregator.service",
+    "fields": {
+        "url": "http://geonode.state.gov/geoserver/ows",
+        "type": "OGC:WMS"
+    }
+},
+{
+    "pk": 26,
+    "model": "aggregator.service",
+    "fields": {
+        "type": "OGC:WMTS"
+    }
+},
+{
+    "pk": 4,
+    "model": "aggregator.service",
+    "fields": {
+        "type": "OGC:WMTS"
+    }
+},
+{
+    "pk": 5,
+    "model": "aggregator.service",
+    "fields": {
+        "type": "ESRI"
+    }
+}
+]

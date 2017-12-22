@@ -1,0 +1,142 @@
+{% extends "aggregator/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+
+{% block content %}
+
+{% include "aggregator/includes/search_title.html" %}
+
+  <p>
+  {% trans "We track health of" %} {{ services_count|intcomma }}
+  {% trans "remote map services, containing a total of" %} {{ layers_count|intcomma }}
+  {% trans "layers" %}
+  </p>
+
+  {% if services %}
+
+  <div class="row">
+    <div class="col-md-6">
+
+        {% trans "Catalogs" %}:
+        <a href="{% url 'index' %}">all ({{ services_count }})</a>
+        {% for catalog in catalogs %}
+            <a href="{{ catalog.get_absolute_url }}">{{ catalog.name }} ({{ catalog.service_set.count }})</a>
+        {% endfor %}
+
+        <br>
+        {% trans "Filter by" %}:
+        {% for type in types_list %}
+            &nbsp;<a href="?filter_by={{ type.0 }}">{{ type.1 }} ({{ type.2 }})</a>
+        {% endfor %}
+
+
+    </div>
+    <div class="col-md-6">
+      <form id='search' action="." method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <a href="?order_by=title"><i class="fa fa-fw fa-sort-asc"></i></a>
+              {% trans "Title" %}
+              <a href="?order_by=-title"><i class="fa fa-fw fa-sort-desc"></i></a>
+            </th>
+            <th>
+              <a href="?order_by=layers_count"><i class="fa fa-fw fa-sort-asc"></i></a>
+              {% trans "Layers" %}
+              <a href="?order_by=-layers_count"><i class="fa fa-fw fa-sort-desc"></i></a>
+            </th>
+            <th>{% trans "Is Valid?" %}</th>
+            <th>
+              <a href="?order_by=last_updated"><i class="fa fa-fw fa-sort-asc"></i></a>
+              {% trans "Last Check" %}
+              <a href="?order_by=-last_updated"><i class="fa fa-fw fa-sort-desc"></i></a>
+            </th>
+            <th>
+              <a href="?order_by=total_checks"><i class="fa fa-fw fa-sort-asc"></i></a>
+              {% trans "Total Checks" %}
+              <a href="?order_by=-total_checks"><i class="fa fa-fw fa-sort-desc"></i></a>
+            </th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Average Resp. Time" %}</th>
+            <th>{% trans "Reliability" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for service in services %}
+            <tr>
+              <td>
+                <a href="{{ service.catalog.get_absolute_url }}">{{ service.catalog.name }}</a>:<strong>{{ service.get_domain }}</strong>
+                <br /><a href="{{ service.get_absolute_url }}">{{ service.title|truncatechars:40 }}</a>
+                <br /><a href="{{ service.url }}">{{ service.url|truncatechars:40 }}</a>
+                <br />{{ service.get_type_display }}
+{#                  <a href="{{ service.catalog.get_absolute_url }}"><span class="label label-default">{{ service.catalog.name }}</span></a>#}
+              </td>
+              <td>{{ service.layer_set.all.count|intcomma }}</td>
+              <td>
+                {% if service.is_valid %}
+                  <button type="button" class="btn btn-success btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                {% else %}
+                  <button type="button" class="btn btn-danger btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                {% endif %}
+              </td>
+              {% if service.checks_count > 0 %}
+                <td>
+                    {{ service.last_check.checked_datetime }}
+                </td>
+                <td>{{ service.checks_count|intcomma }}</td>
+                <td>
+                  {% if service.last_status %}
+                    <button type="button" class="btn btn-success btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                  {% else %}
+                    <button type="button" class="btn btn-danger btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                  {% endif %}
+                </td>
+                <td>{{ service.min_response_time|floatformat:2 }}s</td>
+                <td>
+                  {% if service.reliability > 97 %}
+                    <button type="button" class="btn btn-success btn-block nohover">{{ service.reliability|floatformat:2 }}%</button>
+                  {% else %}
+                    <a type="button" class="btn btn-danger btn-block nohover"
+                    href="{{ service.get_checks_admin_reliability_warning_url }}">{{ service.reliability|floatformat:2 }}%</a>
+                  {% endif %}
+                </td>
+              {% else %}
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>N/A</td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ul class="pagination">
+    <li><a href="?page=1{% if filter_by %}&filter_by={{ filter_by }}{% endif %}">(1/{{ services.paginator.num_pages }}) &laquo;&laquo;&laquo;</a></li>
+    {% for i in services.paginator.page_range %}
+      {% if services.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}{% if filter_by %}&filter_by={{ filter_by }}{% endif %}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    <li><a href="?page={{ services.paginator.num_pages }}{% if filter_by %}&filter_by={{ filter_by }}{% endif %}">&raquo;&raquo;&raquo; ({{ services.paginator.num_pages }}/{{ services.paginator.num_pages }})</a></li>
+  </ul>
+
+  {% else %}
+      <p>{% trans "No services are available." %}"</p>
+  {% endif %}
+
+{% endblock %}

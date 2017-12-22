@@ -1,0 +1,226 @@
+{% extends "aggregator/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>{% trans "Service details for" %}: {{ service.title|truncatechars:40 }}</h1>
+</div>
+
+{% if user.is_superuser %}
+  {% include "aggregator/publish.html" with csw_resourcetype=service.csw_resourcetype csw_source=service.url publish_type='Service' %}
+{% endif %}
+
+<div class="row">
+  <div class="col-md-6">
+    <ul>
+    {% if user.is_superuser %}
+      <button type="button" class="btn-sm btn-success btn-circle btn nohover" data-toggle="modal" data-target="#publish-modal">{% trans "Publish" %}</button>
+    {% endif %}
+      <a href="{{ service.get_check_stats_absolute_url }}">
+        <button type="button" class="btn-sm btn-primary btn-circle btn nohover">{% trans "See full check stats" %}</button>
+      </a>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    {% if user.is_superuser %}
+    {% trans "Administrative actions" %}:
+    <form action="{{ service.get_absolute_url }}" method="post">
+      {% csrf_token %}
+      <input type="submit" class="btn-sm btn-success btn-circle btn nohover" name="check" value='{% trans "Check now" %}'>
+      <input type="submit" class="btn-sm btn-success btn-circle btn nohover" name="remove" value='{% trans "Remove checks" %}'>
+      <input type="submit" class="btn-sm btn-success btn-circle btn nohover" name="index" value='{% trans "Index" %}'>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td><strong>{% trans "Type" %}</strong></td>
+          <td>{{ service.get_type_display }}</td>
+        </tr>
+        <tr>
+          <td><strong>{% trans "Is valid?" %}</strong></td>
+          <td>{{ service.is_valid }}</td>
+        </tr>
+        <tr>
+          <td><strong>{% trans "Name" %}</strong></td>
+          <td>{{ service.title }}</td>
+        </tr>
+        <tr>
+          <td><strong>{% trans "Abstract" %}</strong></td>
+          <td>{{ service.abstract }}</td>
+        </tr>
+        {% if user.is_superuser %}
+          <tr>
+            <td><strong>URL</strong></td>
+            <td>
+              <ul>
+                <li>{% trans "EndPoint" %}: <a id="resource-url" href="{{ service.url }}">{{ service.url|truncatechars:80 }}</a></li>
+                <li>{% trans "Search" %}:
+                    {% if SEARCH_TYPE == 'elasticsearch' %}
+                    <a href="{{SEARCH_URL}}/hypermap/_search?q=service_id:{{service.id}}" target="new">{{SEARCH_URL}}/hypermap/_search?q=service_id:{{ service.id }}</a>
+                    {% elif SEARCH_TYPE == 'solr' %}
+                    <a href="{{SEARCH_URL}}/solr/hypermap/select?q=service_id:{{service.id}}&wt=json&indent=true" target="new">{{SEARCH_URL}}/solr/hypermap/select?q=service_id:{{service.id}}&wt=json&indent=true</a>
+                    {% endif %}
+                </li>
+                <li>{% trans "Metadata" %}:
+                    <a href="{% url 'csw_global_dispatch_by_catalog' catalog_slug %}?service=CSW&version=2.0.2&request=GetRepositoryItem&elementsetname=full&id={{service.uuid}}" target="new">
+                        {{ request.scheme }}://{{ request.get_host }}{% url 'csw_global_dispatch_by_catalog' catalog_slug %}?service=CSW&version=2.0.2&request=GetRepositoryItem&elementsetname=full&&id={{service.uuid}}
+                    </a>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        {% endif %}
+        <tr>
+          <td><strong>{% trans "Monitoring Period" %}</strong></td>
+          <td>
+            {% if service.checks_count > 0 %}
+            <ul>
+              <li>{% trans "First Check" %}: {{ service.first_check.checked_datetime }}</li>
+              <li>{% trans "Last Check" %}: {{ service.last_check.checked_datetime }}</li>
+              <li>{% trans "Total Checks" %}: {{ service.checks_count }}</li>
+              <li>{% trans "Reliability" %}: {{ service.reliability }}</li>
+            </ul>
+            {% else %}
+              {% trans "No checks performed so far" %}
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td><strong>{% trans "Response Times" %}</strong></td>
+          <td>
+            {% if service.checks_count > 0 %}
+            <ul>
+              <li>{% trans "Min" %}: {{ service.min_response_time|floatformat:2 }}s</li>
+              <li>{% trans "Average" %}: {{ service.average_response_time|floatformat:2 }}s</li>
+              <li>{% trans "Max" %}: {{ service.max_response_time|floatformat:2 }}s</li>
+            </ul>
+            {% else %}
+              {% trans "No checks performed so far" %}
+            {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div id="run-chart" class="run-chart"></div>
+
+<h2>{% trans "Layers" %} ({{ service.layer_set.all.count|intcomma }})</h2>
+
+{% if service.get_deleted_number %}
+  <p>({% trans "there are" %} {{ service.get_deleted_number }} {% trans "deleted layers for this service" %})</p>
+{% endif %}
+
+{% if layers %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>{% trans "Is Valid?" %}</th>
+            <th>{% trans "Last Check" %}</th>
+            <th>{% trans "Tot Checks" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Av. Resp. Time" %}</th>
+            <th>{% trans "Reliability" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for layer in layers %}
+              <tr>
+                <td>
+                  {% if layer.thumbnail %}
+                  <a href="{{ layer.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ layer.thumbnail }}" width="50" /></a>
+                  {% endif %}
+                </td>
+                <td>
+                  <ul>
+                    <li>{% trans "Name" %}: <a href="{{ layer.get_absolute_url }}">{{ layer.name }}</a></li>
+                    <li>{% trans "Title" %}: {{ layer.title }}</li>
+                    <li>{% trans "Abstract" %}: {{ layer.abstract|truncatewords:10 }}</li>
+                  </ul>
+                </td>
+                <td>
+                    {% if layer.is_valid %}
+                      <button type="button" class="btn btn-success btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                    {% else %}
+                      <button type="button" class="btn btn-danger btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                    {% endif %}
+                </td>
+                <td>
+                  {% if layer.checks_count > 0 %}
+                    {{ layer.last_check.checked_datetime }}
+                  {% else %}
+                    {% trans "No checks for this layer" %}
+                  {% endif %}
+                </td>
+                <td>
+                  {{ layer.checks_count }}
+                </td>
+                {% if layer.checks_count > 0 %}
+                  <td>
+                      <a href="{{ layer.get_absolute_url }}">
+                      {% if layer.last_status %}
+                        <button type="button" class="btn btn-success btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                      {% else %}
+                        <button type="button" class="btn btn-danger btn-circle btn nohover"><i class="fa fa-check"></i></button>
+                      {% endif %}
+                      </a>
+
+                  </td>
+                  <td>
+                    {{ layer.average_response_time|floatformat:2 }}s
+                  </td>
+                  <td>
+                    {% if layer.reliability > 97 %}
+                      <button type="button" class="btn btn-success btn-block nohover">{{ layer.reliability|floatformat:2 }}%</button>
+                    {% else %}
+                      <button type="button" class="btn btn-danger btn-block nohover">{{ layer.reliability|floatformat:2 }}%</button>
+                    {% endif %}
+                  </td>
+                {% else %}
+                  <td>{% trans "N/A" %}</td>
+                  <td>{% trans "N/A" %}</td>
+                  <td>{% trans "N/A" %}</td>
+                {% endif %}
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ul class="pagination">
+    {% if layers.paginator.num_pages > 2 %}
+      <li><a href="?page=1">(1/{{ layers.paginator.num_pages }}) &laquo;&laquo;&laquo;</a></li>
+    {% endif %}
+    {% for i in layers.paginator.page_range %}
+      {% if layers.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if layers.paginator.num_pages > 2 %}
+      <li><a href="?page={{ layers.paginator.num_pages }}">&raquo;&raquo;&raquo; ({{ layers.paginator.num_pages }}/{{ layers.paginator.num_pages }})</a></li>
+    {% endif %}
+  </ul>
+
+{% else %}
+    <p>{% trans "No layers are available" %}.</p>
+{% endif %}
+
+{% endblock %}

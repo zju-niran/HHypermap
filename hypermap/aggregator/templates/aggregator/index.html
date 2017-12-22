@@ -1,0 +1,52 @@
+{% extends "aggregator/base.html" %}
+
+{% load i18n %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>{% trans "Domains" %}</h1>
+</div>
+
+<p>{% trans "We track health of" %} {{ services_count|intcomma }}
+  {% trans "remote map services, containing a total of " %} {{ layers_count|intcomma }}
+  {% trans "layers" %}</p>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped" id="report">
+      <thead>
+        <tr>
+          <th>{% trans "Domain" %}</th>
+          <th>{% trans "Layers Count" %}</th>
+          <th>{% trans "Services Count" %}</th>
+        </tr>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<script>
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+var json_data = '{{ data|safe }}';
+var obj = JSON.parse(json_data)['facet_counts']['facet_pivot']['domain_name,service_id'];
+for(var i=0, l1=obj.length; i<l1; i++){
+  var domain = obj[i]
+  console.log(domain);
+  tr = $('<tr/>');
+  tr.append("<td>" + domain.value + "</td>");
+  tr.append("<td><a href='/?q=" + domain.value + "'>" + numberWithCommas(domain.count) + "</a></td>");
+  tr.append("<td><a href='/?q=" + domain.value + "'>" + numberWithCommas(domain.pivot.length) + "</td>");
+  $('#report').append(tr);
+}
+
+</script>
+
+{% endblock %}
