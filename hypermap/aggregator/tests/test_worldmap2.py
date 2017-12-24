@@ -26,7 +26,7 @@ class TestWorldMap2(unittest.TestCase):
         # create the service
         service = Service(
             type='Hypermap:WorldMap2',
-            url='http://202.121.180.205:8000/',
+            url='http://172.20.10.3:8000/',
             catalog=catalog
         )
         service.save()
@@ -122,7 +122,7 @@ class TestWorldMap2(unittest.TestCase):
         def create_duplicated_service():
             duplicated_service = Service(
                 type='Hypermap:WorldMap2',
-                url='http://202.121.180.205:8000/'
+                url='http://172.20.10.3:8000/'
             )
             duplicated_service.save()
 

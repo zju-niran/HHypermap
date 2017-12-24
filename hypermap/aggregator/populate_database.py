@@ -16,7 +16,7 @@ def populate_initial_services():
             'ZJU Acadamic Map Publishing Platform',
             'ZJU Acadamic Map Publishing Platform',
             'Hypermap:WorldMap2',
-            'http://202.121.180.205:8000'
+            'http://172.20.10.3:8000'
         ),
         (
             'Harvard WorldMap',

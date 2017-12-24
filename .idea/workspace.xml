@@ -27,18 +27,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/HHypermap$debug.coverage" NAME="debug Coverage Results" MODIFIED="1513781176023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HHypermap$debug.coverage" NAME="debug Coverage Results" MODIFIED="1513931226523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hypermap/aggregator/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1368">
-              <caret line="98" column="8" lean-forward="false" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
+            <state relative-caret-position="144">
+              <caret line="135" column="39" lean-forward="false" selection-start-line="135" selection-start-column="39" selection-end-line="135" selection-end-column="39" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#15841#16324#0" expanded="false" />
@@ -48,34 +48,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hypermap/aggregator/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="133" column="29" lean-forward="true" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
+            <state relative-caret-position="198">
+              <caret line="285" column="0" lean-forward="true" selection-start-line="285" selection-start-column="0" selection-end-line="285" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#2138#3203#0" expanded="false" />
                 <element signature="e#3697#3894#0" expanded="false" />
-                <element signature="e#17979#19211#0" expanded="false" />
-                <element signature="e#19241#34613#0" expanded="false" />
-                <element signature="e#34651#34921#0" expanded="false" />
-                <element signature="e#34957#35585#0" expanded="false" />
-                <element signature="e#35626#36141#0" expanded="false" />
-                <element signature="e#36178#36706#0" expanded="false" />
-                <element signature="e#36744#36940#0" expanded="false" />
-                <element signature="e#36974#37476#0" expanded="false" />
-                <element signature="e#37510#38000#0" expanded="false" />
-                <element signature="e#38045#40075#0" expanded="false" />
-                <element signature="e#40106#40486#0" expanded="false" />
-                <element signature="e#40563#44205#0" expanded="false" />
-                <element signature="e#44245#47455#0" expanded="false" />
-                <element signature="e#60645#64447#0" expanded="false" />
-                <element signature="e#64515#70160#0" expanded="false" />
-                <element signature="e#70212#72759#0" expanded="false" />
-                <element signature="e#72832#73517#0" expanded="false" />
-                <element signature="e#73575#74040#0" expanded="false" />
-                <element signature="e#74096#74861#0" expanded="false" />
+                <element signature="e#17979#19217#0" expanded="false" />
+                <element signature="e#60749#64551#0" expanded="false" />
+                <element signature="e#64619#70264#0" expanded="false" />
+                <element signature="e#70316#72863#0" expanded="false" />
+                <element signature="e#72936#73621#0" expanded="false" />
+                <element signature="e#73679#74144#0" expanded="false" />
+                <element signature="e#74200#74965#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -94,8 +82,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hypermap/aggregator/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="972">
-              <caret line="74" column="11" lean-forward="false" selection-start-line="74" selection-start-column="11" selection-end-line="74" selection-end-column="11" />
+            <state relative-caret-position="130">
+              <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -103,10 +91,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hypermap/aggregator/templates/aggregator/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="40" column="21" lean-forward="true" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hypermap/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4698">
+            <state relative-caret-position="301">
               <caret line="266" column="46" lean-forward="false" selection-start-line="266" selection-start-column="13" selection-end-line="266" selection-end-column="46" />
               <folding />
             </state>
@@ -116,8 +114,8 @@
       <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5472">
-              <caret line="304" column="17" lean-forward="false" selection-start-line="304" selection-start-column="14" selection-end-line="304" selection-end-column="17" />
+            <state relative-caret-position="606">
+              <caret line="200" column="34" lean-forward="true" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -129,8 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>django</find>
-      <find>REGISTRY_WORLDMAP_USERNAME</find>
       <find>wms</find>
       <find>layerwm</find>
       <find>update_last_wm_layers</find>
@@ -138,7 +134,6 @@
       <find>create_wm_service</find>
       <find>'Hypermap:WorldMap'</find>
       <find>WorldMap</find>
-      <find>worldmap</find>
       <find>add</find>
       <find>static</find>
       <find>endpoint</find>
@@ -156,6 +151,12 @@
       <find>search</find>
       <find>domain</find>
       <find>search_url</find>
+      <find>template</find>
+      <find>check_service</find>
+      <find>wm</find>
+      <find>worldmap</find>
+      <find>data</find>
+      <find>check_all_services</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,10 +167,8 @@
       <list>
         <option value="$PROJECT_DIR$/hypermap/aggregator/enums.py" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/populate_database.py" />
-        <option value="$PROJECT_DIR$/hypermap/aggregator/tasks.py" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/utils.py" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/count_srs.py" />
-        <option value="$PROJECT_DIR$/hypermap/aggregator/views.py" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/templates/aggregator/layer_detail.html" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/tests/test_worldmap2.py" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/tests/test_metadata.py" />
@@ -177,6 +176,8 @@
         <option value="$PROJECT_DIR$/hypermap/aggregator/templates/aggregator/base.html" />
         <option value="$PROJECT_DIR$/data/sample_endpoint_list.txt" />
         <option value="$PROJECT_DIR$/hypermap/aggregator/models.py" />
+        <option value="$PROJECT_DIR$/hypermap/aggregator/views.py" />
+        <option value="$PROJECT_DIR$/hypermap/aggregator/tasks.py" />
       </list>
     </option>
   </component>
@@ -186,11 +187,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="145" />
-    <option name="y" value="62" />
+    <option name="y" value="34" />
     <option name="width" value="1125" />
-    <option name="height" value="776" />
+    <option name="height" value="804" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -225,7 +226,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,10 +256,19 @@
               <item name="aggregator" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="HHypermap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HHypermap" type="462c0819:PsiDirectoryNode" />
+              <item name="hypermap" type="462c0819:PsiDirectoryNode" />
+              <item name="aggregator" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="aggregator" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -309,13 +318,13 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
         <env name="C_FORCE_ROOT" value="1" />
         <env name="REGISTRY_INDEX_CACHED_LAYERS_PERIOD" value="1" />
         <env name="REGISTRY_HARVEST_SERVICES" value="True" />
         <env name="BROKER_URL" value="amqp://guest:guest@localhost:5672/" />
         <env name="DJANGO_SETTINGS_MODULE" value="hypermap.settings" />
         <env name="REGISTRY_LIMIT_LAYERS" value="0" />
+        <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DATABASE_URL" value="postgres://hypermap:hypermap@localhost:5432/hypermap" />
         <env name="CELERY_DEFAULT_EXCHANGE" value="hypermap" />
         <env name="REGISTRY_CHECK_PERIOD" value="120" />
@@ -335,7 +344,7 @@
       <module name="HHypermap" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="runserver" />
+      <option name="PARAMETERS" value="runserver 0.0.0.0:8000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -385,21 +394,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="145" y="62" width="1125" height="776" extended-state="0" />
+    <frame x="65" y="-4" width="1215" height="804" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959327" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18477331" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24978614" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29699248" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29185185" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -515,13 +524,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hypermap/aggregator/views.py</url>
-          <line>72</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hypermap/aggregator/views.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="77" />
+          <line>83</line>
+          <option name="timeStamp" value="83" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -531,7 +535,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="81" />
+      <option name="time" value="84" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -742,20 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tests/test_worldmap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tests/test_worldmap2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="120" column="28" lean-forward="true" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tests/mocks/worldmap.harvard.edu/api/1.5/layer">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -826,13 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/templates/aggregator/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hypermap/aggregator/enums.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -896,50 +879,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="98" column="8" lean-forward="false" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#15841#16324#0" expanded="false" />
-            <element signature="e#20109#23388#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/env/local/lib/python2.7/site-packages/django/core/handlers/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2952">
           <caret line="181" column="38" lean-forward="false" selection-start-line="181" selection-start-column="38" selection-end-line="181" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5472">
-          <caret line="304" column="17" lean-forward="false" selection-start-line="304" selection-start-column="14" selection-end-line="304" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4698">
-          <caret line="266" column="46" lean-forward="false" selection-start-line="266" selection-start-column="13" selection-end-line="266" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="74" column="11" lean-forward="false" selection-start-line="74" selection-start-column="11" selection-end-line="74" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -953,31 +896,83 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hypermap/aggregator/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="133" column="29" lean-forward="true" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
+        <state relative-caret-position="198">
+          <caret line="285" column="0" lean-forward="true" selection-start-line="285" selection-start-column="0" selection-end-line="285" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#2138#3203#0" expanded="false" />
             <element signature="e#3697#3894#0" expanded="false" />
-            <element signature="e#17979#19211#0" expanded="false" />
-            <element signature="e#19241#34613#0" expanded="false" />
-            <element signature="e#34651#34921#0" expanded="false" />
-            <element signature="e#34957#35585#0" expanded="false" />
-            <element signature="e#35626#36141#0" expanded="false" />
-            <element signature="e#36178#36706#0" expanded="false" />
-            <element signature="e#36744#36940#0" expanded="false" />
-            <element signature="e#36974#37476#0" expanded="false" />
-            <element signature="e#37510#38000#0" expanded="false" />
-            <element signature="e#38045#40075#0" expanded="false" />
-            <element signature="e#40106#40486#0" expanded="false" />
-            <element signature="e#40563#44205#0" expanded="false" />
-            <element signature="e#44245#47455#0" expanded="false" />
-            <element signature="e#60645#64447#0" expanded="false" />
-            <element signature="e#64515#70160#0" expanded="false" />
-            <element signature="e#70212#72759#0" expanded="false" />
-            <element signature="e#72832#73517#0" expanded="false" />
-            <element signature="e#73575#74040#0" expanded="false" />
-            <element signature="e#74096#74861#0" expanded="false" />
+            <element signature="e#17979#19217#0" expanded="false" />
+            <element signature="e#60749#64551#0" expanded="false" />
+            <element signature="e#64619#70264#0" expanded="false" />
+            <element signature="e#70316#72863#0" expanded="false" />
+            <element signature="e#72936#73621#0" expanded="false" />
+            <element signature="e#73679#74144#0" expanded="false" />
+            <element signature="e#74200#74965#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="200" column="34" lean-forward="true" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tests/test_worldmap2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2020">
+          <caret line="123" column="39" lean-forward="false" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/tests/test_worldmap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1971">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/templates/aggregator/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="40" column="21" lean-forward="true" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="266" column="46" lean-forward="false" selection-start-line="266" selection-start-column="13" selection-end-line="266" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hypermap/aggregator/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="135" column="39" lean-forward="false" selection-start-line="135" selection-start-column="39" selection-end-line="135" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#15841#16324#0" expanded="false" />
+            <element signature="e#20109#23388#0" expanded="false" />
           </folding>
         </state>
       </provider>

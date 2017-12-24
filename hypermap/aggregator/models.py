@@ -517,7 +517,7 @@ class Catalog(models.Model):
     url = models.URLField(
         max_length=255,
         help_text=("Only if remote. URL where the API for the search backend is served."
-                   "ex: http://202.121.180.205:8000/registry/api/search/"),
+                   "ex: http://172.20.10.3:8000/registry/api/search/"),
         null=True, blank=True
     )
 
@@ -1411,13 +1411,13 @@ def update_layers_wm(service, num_layers=None):
 def update_layers_wm2(service, num_layers=None):
     """
     Update layers for an WorldMap.
-    Sample endpoint: http://202.121.180.205:8000/
+    Sample endpoint: http://172.20.10.3:8000/
     """
 
     if num_layers:
         total = num_layers
     else:
-        response = requests.get('http://202.121.180.205:8000/api/2.6/layer/?format=json')
+        response = requests.get('http://172.20.10.3:8000/api/2.6/layer/?format=json')
         data = json.loads(response.content)
         total = data['meta']['total_count']
     # set srs
@@ -1432,7 +1432,7 @@ def update_layers_wm2(service, num_layers=None):
     for i in range(0, total, limit):
         try:
             url = (
-                    'http://202.121.180.205:8000/api/2.6/layer/?format=json&order_by=-date&offset=%s&limit=%s'
+                    'http://172.20.10.3:8000/api/2.6/layer/?format=json&order_by=-date&offset=%s&limit=%s'
                     % (i, limit)
             )
             LOGGER.debug('Fetching %s' % url)
@@ -1445,7 +1445,7 @@ def update_layers_wm2(service, num_layers=None):
                 title = row['title']
                 abstract = row['abstract']
                 bbox = row['bbox']
-                page_url = 'http://202.121.180.205:8000/data/%s' % name
+                page_url = 'http://172.20.10.3:8000/data/%s' % name
                 category = ''
                 if 'topic_category' in row:
                     category = row['topic_category']
@@ -1459,7 +1459,7 @@ def update_layers_wm2(service, num_layers=None):
                 if 'temporal_extent_end' in row:
                     temporal_extent_end = row['temporal_extent_end']
                 # we use the geoserver virtual layer getcapabilities for wm endpoint
-                endpoint = 'http://202.121.180.205:8080/geoserver/geonode/%s/wms?' % title
+                endpoint = 'http://172.20.10.3:8080/geoserver/geonode/%s/wms?' % title
                 is_public = True
                 if 'is_public' in row:
                     is_public = row['is_public']

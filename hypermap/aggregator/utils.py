@@ -117,7 +117,7 @@ def create_services_from_endpoint(url, catalog, greedy_opt=True):
         abstract = 'Harvard WorldMap'
         endpoint = domain
         detected = True
-    if domain == 'http://202.121.180.205:8000/':
+    if domain == 'http://172.20.10.3:8000/':
         service_type = 'Hypermap:WorldMap2'
         title = 'ZJU Acadamic Map Publishing Platform'
         abstract = 'ZJU Acadamic Map Publishing Platform'
