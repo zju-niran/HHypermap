@@ -735,14 +735,11 @@ class Layer(Resource):
                     image_format = 'image/jpeg'
                 else:
                     raise NotImplementedError(format_error_message)
-            LOGGER.debug('success 123456789')
             
             img = ows.getmap(layers=[self.name],srs='EPSG:4326',bbox=(float(self.bbox_x0),float(self.bbox_y0),float(self.bbox_x1),float(self.bbox_y1)),size=(50,50),format=image_format,transparent=True)
-            LOGGER.debug('success 12345')
             if 'ogc.se_xml' in img.info()['Content-Type']:
                 raise ValueError(img.read())
                 img = None
-                LOGGER.debug('success 123456')
         elif self.type == 'Hypermap:WARPER':
             ows = WebMapService(self.url)
             op_getmap = ows.getOperationByName('GetMap')
@@ -815,7 +812,6 @@ class Layer(Resource):
 
         # update thumb in model
         if img:
-            LOGGER.debug('success 1234567')
             thumbnail_file_name = '%s.jpg' % self.name
             upfile = SimpleUploadedFile(thumbnail_file_name, img.read(), "image/jpeg")
             self.thumbnail.save(thumbnail_file_name, upfile, True)
@@ -837,11 +833,9 @@ class Layer(Resource):
         except ValueError, err:
             # caused by update_thumbnail()
             # self.href is empty in arcserver.ExportMap
-            LOGGER.debug('success12345')
             if str(err).startswith("unknown url type:"):
                 LOGGER.debug('Thumbnail can not be updated: %s' % str(err))
         except Exception, err:
-            LOGGER.debug('success123456')
             message = str(err)
             success = False
 
@@ -1539,16 +1533,22 @@ def update_layers_wm2(service, num_layers=None):
     # update deleted layers. For now we check the whole set of deleted layers
     # we should optimize it if the list will grow
     # TODO implement the actions application
+    # recently, actionlayerdelete return all the layers existing in resource_base 
+    # except the deleted layers. Because i found the deleted layers have no uuid or id 
+    # in the table actstream_action in worldmap.
     url = 'http://172.20.10.3:8000/api/2.6/actionlayerdelete/?format=json'
     LOGGER.debug('Fetching %s for detecting deleted layers' % url)
     response = requests.get(url)
     data = json.loads(response.content)
+    Layer.objects.filter(type='Hypermap:WorldMap2').update(was_deleted=True)
     for deleted_layer in data['objects']:
         if Layer.objects.filter(uuid=deleted_layer['uuid']).count() > 0:
             layer = Layer.objects.get(uuid=deleted_layer['uuid'])
-            layer.was_deleted = True
+            layer.was_deleted = False
             layer.save()
-            LOGGER.debug('Layer %s marked as deleted' % layer.uuid)
+    deletelayers = Layer.objects.filter(type='Hypermap:WorldMap2', was_deleted=True)
+    for deletelayer in deletelayers:
+        LOGGER.debug('Layer %s marked as deleted' % deletelayer.uuid)
 
 
 def update_layers_warper(service):
