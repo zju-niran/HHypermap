@@ -1535,18 +1535,20 @@ def update_layers_wm2(service, num_layers=None):
 
         except Exception as err:
             LOGGER.error('Error! %s' % err)
-            message = "update_layers_warper: {0}. request={1} response={2}".format(
-                err,
-                service.url,
-                request.text
-            )
-            check = Check(
-                content_object=service,
-                success=False,
-                response_time=0,
-                message=message
-            )
-            check.save()
+
+    # update deleted layers. For now we check the whole set of deleted layers
+    # we should optimize it if the list will grow
+    # TODO implement the actions application
+    url = 'http://172.20.10.3:8000/api/2.6/actionlayerdelete/?format=json'
+    LOGGER.debug('Fetching %s for detecting deleted layers' % url)
+    response = requests.get(url)
+    data = json.loads(response.content)
+    for deleted_layer in data['objects']:
+        if Layer.objects.filter(uuid=deleted_layer['uuid']).count() > 0:
+            layer = Layer.objects.get(uuid=deleted_layer['uuid'])
+            layer.was_deleted = True
+            layer.save()
+            LOGGER.debug('Layer %s marked as deleted' % layer.uuid)
 
 
 def update_layers_warper(service):
